@@ -165,7 +165,7 @@ let rec fibonacci x =
 [<Measure>] type month
 
 let investment = 1000.<czk/month>
-let savingRate = 1.01
+let monthlySavingsRate = 1.01
 let yearlySavingsRate = pown monthlySavingsRate 12
 
 let afterYears noOfYears = 
@@ -173,7 +173,7 @@ let afterYears noOfYears =
     let period = 1.<month>
     for i=0 to (noOfYears*12) do
         balance <- balance + (investment*period)
-        balance <- balance * savingRate
+        balance <- balance * monthlySavingsRate
     System.String.Format("Investing for {0} years yields {1:## ### ##0}", noOfYears,balance)
 
 
