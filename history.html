@@ -1,0 +1,462 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Strongly typed FP</title>
+    <meta name="description" content="Strongly typed functional programming in .NET">
+    <meta name="author" content="Tomas Grosup">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <script src="//code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="//code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/moon.css" id="theme">
+    <link type="text/css" rel="stylesheet" href="fsharp.formatting/styles/style.css" />
+    <link type="text/css" rel="stylesheet" href="fsharp.formatting/styles/deedle.css" />
+    <link type="text/css" rel="stylesheet" href="css/custom.css" />
+    <script src="fsharp.formatting/styles/tips.js" type="text/javascript"></script>
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+    <link rel="stylesheet" href="css/fsreveal.css">
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+    </script>
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+    <script language="javascript" type="text/javascript">
+        function init()
+        {
+            websocket = new WebSocket("ws://"+window.location.host+"/websocket");
+            websocket.onmessage = function(evt) { location.reload(); };
+        }
+        window.addEventListener("load", init, false);
+    </script>
+</head>
+<body>
+    <div class="reveal">
+        <div class="tip" id="fs1">val fetchUrlAsync : url:string -&gt; client:&#39;a -&gt; &#39;b<br /><br />Full name: history.fetchUrlAsync</div>
+<div class="tip" id="fs2">val url : string</div>
+<div class="tip" id="fs3">Multiple items<br />val string : value:&#39;T -&gt; string<br /><br />Full name: Microsoft.FSharp.Core.Operators.string<br /><br />--------------------<br />type string = System.String<br /><br />Full name: Microsoft.FSharp.Core.string</div>
+<div class="tip" id="fs4">val client : &#39;a</div>
+<div class="tip" id="fs5">val cachedVersionOf : originalFunction:(&#39;a -&gt; &#39;b) -&gt; (&#39;a -&gt; &#39;b) (requires comparison)<br /><br />Full name: History.cachedVersionOf</div>
+<div class="tip" id="fs6">val originalFunction : (&#39;a -&gt; &#39;b) (requires comparison)</div>
+<div class="tip" id="fs7">val mutable cache : Map&lt;&#39;a,&#39;b&gt; (requires comparison)</div>
+<div class="tip" id="fs8">Multiple items<br />module Map<br /><br />from Microsoft.FSharp.Collections<br /><br />--------------------<br />type Map&lt;&#39;Key,&#39;Value (requires comparison)&gt; =<br />&#160;&#160;interface IEnumerable<br />&#160;&#160;interface IComparable<br />&#160;&#160;interface IEnumerable&lt;KeyValuePair&lt;&#39;Key,&#39;Value&gt;&gt;<br />&#160;&#160;interface ICollection&lt;KeyValuePair&lt;&#39;Key,&#39;Value&gt;&gt;<br />&#160;&#160;interface IDictionary&lt;&#39;Key,&#39;Value&gt;<br />&#160;&#160;new : elements:seq&lt;&#39;Key * &#39;Value&gt; -&gt; Map&lt;&#39;Key,&#39;Value&gt;<br />&#160;&#160;member Add : key:&#39;Key * value:&#39;Value -&gt; Map&lt;&#39;Key,&#39;Value&gt;<br />&#160;&#160;member ContainsKey : key:&#39;Key -&gt; bool<br />&#160;&#160;override Equals : obj -&gt; bool<br />&#160;&#160;member Remove : key:&#39;Key -&gt; Map&lt;&#39;Key,&#39;Value&gt;<br />&#160;&#160;...<br /><br />Full name: Microsoft.FSharp.Collections.Map&lt;_,_&gt;<br /><br />--------------------<br />new : elements:seq&lt;&#39;Key * &#39;Value&gt; -&gt; Map&lt;&#39;Key,&#39;Value&gt;</div>
+<div class="tip" id="fs9">val empty&lt;&#39;Key,&#39;T (requires comparison)&gt; : Map&lt;&#39;Key,&#39;T&gt; (requires comparison)<br /><br />Full name: Microsoft.FSharp.Collections.Map.empty</div>
+<div class="tip" id="fs10">val key : &#39;a (requires comparison)</div>
+<div class="tip" id="fs11">val tryFind : key:&#39;Key -&gt; table:Map&lt;&#39;Key,&#39;T&gt; -&gt; &#39;T option (requires comparison)<br /><br />Full name: Microsoft.FSharp.Collections.Map.tryFind</div>
+<div class="tip" id="fs12">union case Option.Some: Value: &#39;T -&gt; Option&lt;&#39;T&gt;</div>
+<div class="tip" id="fs13">val value : &#39;b</div>
+<div class="tip" id="fs14">union case Option.None: Option&lt;&#39;T&gt;</div>
+<div class="tip" id="fs15">val add : key:&#39;Key -&gt; value:&#39;T -&gt; table:Map&lt;&#39;Key,&#39;T&gt; -&gt; Map&lt;&#39;Key,&#39;T&gt; (requires comparison)<br /><br />Full name: Microsoft.FSharp.Collections.Map.add</div>
+<div class="tip" id="fs16">val expandEnvVars : (string -&gt; string)<br /><br />Full name: History.expandEnvVars</div>
+<div class="tip" id="fs17">namespace System</div>
+<div class="tip" id="fs18">type Environment =<br />&#160;&#160;static member CommandLine : string<br />&#160;&#160;static member CurrentDirectory : string with get, set<br />&#160;&#160;static member CurrentManagedThreadId : int<br />&#160;&#160;static member Exit : exitCode:int -&gt; unit<br />&#160;&#160;static member ExitCode : int with get, set<br />&#160;&#160;static member ExpandEnvironmentVariables : name:string -&gt; string<br />&#160;&#160;static member FailFast : message:string -&gt; unit + 1 overload<br />&#160;&#160;static member GetCommandLineArgs : unit -&gt; string[]<br />&#160;&#160;static member GetEnvironmentVariable : variable:string -&gt; string + 1 overload<br />&#160;&#160;static member GetEnvironmentVariables : unit -&gt; IDictionary + 1 overload<br />&#160;&#160;...<br />&#160;&#160;nested type SpecialFolder<br />&#160;&#160;nested type SpecialFolderOption<br /><br />Full name: System.Environment</div>
+<div class="tip" id="fs19">System.Environment.ExpandEnvironmentVariables(name: string) : string</div>
+<div class="tip" id="fs20">val factorial : _arg1:int -&gt; int<br /><br />Full name: history.factorial</div>
+<div class="tip" id="fs21">val n : int</div>
+<div class="tip" id="fs22">type Size =<br />&#160;&#160;| Pixels of int<br />&#160;&#160;| Percentage of float<br />&#160;&#160;| Auto<br /><br />Full name: history.Size</div>
+<div class="tip" id="fs23">union case Size.Pixels: int -&gt; Size</div>
+<div class="tip" id="fs24">Multiple items<br />val int : value:&#39;T -&gt; int (requires member op_Explicit)<br /><br />Full name: Microsoft.FSharp.Core.Operators.int<br /><br />--------------------<br />type int = int32<br /><br />Full name: Microsoft.FSharp.Core.int<br /><br />--------------------<br />type int&lt;&#39;Measure&gt; = int<br /><br />Full name: Microsoft.FSharp.Core.int&lt;_&gt;</div>
+<div class="tip" id="fs25">union case Size.Percentage: float -&gt; Size</div>
+<div class="tip" id="fs26">Multiple items<br />val float : value:&#39;T -&gt; float (requires member op_Explicit)<br /><br />Full name: Microsoft.FSharp.Core.Operators.float<br /><br />--------------------<br />type float = System.Double<br /><br />Full name: Microsoft.FSharp.Core.float<br /><br />--------------------<br />type float&lt;&#39;Measure&gt; = float<br /><br />Full name: Microsoft.FSharp.Core.float&lt;_&gt;</div>
+<div class="tip" id="fs27">union case Size.Auto: Size</div>
+<div class="tip" id="fs28">Multiple items<br />module Option<br /><br />from Microsoft.FSharp.Core<br /><br />--------------------<br />type Option&lt;&#39;T&gt; =<br />&#160;&#160;| Some of &#39;T<br />&#160;&#160;| None<br /><br />Full name: history.Option&lt;_&gt;</div>
+<div class="tip" id="fs29">union case Option.Some: &#39;T -&gt; Option&lt;&#39;T&gt;</div>
+<div class="tip" id="fs30">type Result&lt;&#39;T,&#39;TErr&gt; =<br />&#160;&#160;| Ok of &#39;T<br />&#160;&#160;| Error of &#39;TErr<br /><br />Full name: history.Result&lt;_,_&gt;</div>
+<div class="tip" id="fs31">union case Result.Ok: &#39;T -&gt; Result&lt;&#39;T,&#39;TErr&gt;</div>
+<div class="tip" id="fs32">union case Result.Error: &#39;TErr -&gt; Result&lt;&#39;T,&#39;TErr&gt;</div>
+
+        <!-- Any section element inside of this container is displayed as a slide -->
+        <div class="slides">
+            <section >
+<section >
+<h3>Early history of functional programming for .NET</h3>
+<ul>
+<li>1970-2024</li>
+<li>Tomas Grosup @ .NET @ DevDiv @ Microsoft</li>
+</ul>
+<p><img src="images/FP_productivity.jpeg" alt="fp_productivity" /></p>
+</section>
+<section >
+<h3>Who cares about FP anyway?</h3>
+<p><img src="images/net_evolution_selection.png" alt="evolution" /></p>
+</section>
+<section >
+<h3>This is not a full history lesson</h3>
+<ul>
+<li>
+Backwards journey seen trough <strong>selected</strong> milestones:
+<ul>
+<li>Asynchronous programming</li>
+<li>Generics</li>
+<li>Early .NET days</li>
+<li>Birth of F#</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p><strong>Peer reviewed history</strong>: <a href="https://fsharp.org/history/hopl-final/hopl-fsharp.pdf">https://fsharp.org/history/hopl-final/hopl-fsharp.pdf</a></p>
+</blockquote>
+<ul>
+<li>(and do approach me after the talk for more!)</li>
+</ul>
+</section>
+</section>
+<section >
+<section >
+<h3>Asynchrony - what is it good for?</h3>
+<ul>
+<li>Continue with computation after "stuff" happens</li>
+<li>Let the thread do other useful work</li>
+</ul>
+<p><img src="images/callback_hell.jpg" alt="callback_hell" /></p>
+</section>
+<section >
+<h3>Async/await  (C# 5, 2012)</h3>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+<span class="l">6: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="cs"><span class="k">static</span> <span class="k">async</span> Task&lt;<span class="k">string</span>&gt; FetchUrlAsync(HttpClient client, <span class="k">string</span> url)
+{
+    <span class="k">var</span> response <span class="o">=</span> await client.GetAsync(url);
+    response.EnsureSuccessStatusCode();
+    <span class="k">return</span> await response.Content.ReadAsStringAsync();
+}
+</code></pre></td></tr></table>
+<ul>
+<li>Ease of transition sync<->async!</li>
+<li>1st big feature of Mads Torgersen</li>
+<li>Today an industry standard</li>
+</ul>
+</section>
+<section >
+<h3>How it came to be?</h3>
+<ul>
+<li>Inspired by F# computation expression async{}</li>
+</ul>
+<p><img src="images/async_history.png" alt="async_history" /></p>
+</section>
+<section >
+<h3>Computation expressions (F# 1.0, 2007)</h3>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+<span class="l">6: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs1', 1)" onmouseover="showTip(event, 'fs1', 1)" class="f">fetchUrlAsync</span> (<span onmouseout="hideTip(event, 'fs2', 2)" onmouseover="showTip(event, 'fs2', 2)" class="i">url</span><span class="o">:</span><span onmouseout="hideTip(event, 'fs3', 3)" onmouseover="showTip(event, 'fs3', 3)" class="t">string</span>) (<span onmouseout="hideTip(event, 'fs4', 4)" onmouseover="showTip(event, 'fs4', 4)" class="i">client</span><span class="o">:</span><span class="i">HttpClient</span>) <span class="o">=</span>
+    <span class="i">task</span> {
+        <span class="k">let!</span> <span class="i">response</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs4', 5)" onmouseover="showTip(event, 'fs4', 5)" class="i">client</span><span class="o">.</span><span class="i">GetAsync</span>(<span onmouseout="hideTip(event, 'fs2', 6)" onmouseover="showTip(event, 'fs2', 6)" class="i">url</span>)
+        <span class="i">response</span><span class="o">.</span><span class="i">EnsureSuccessStatusCode</span>()
+        <span class="k">return!</span> <span class="i">response</span><span class="o">.</span><span class="i">Content</span><span class="o">.</span><span class="i">ReadAsStringAsync</span>()
+    }
+</code></pre></td>
+</tr>
+</table>
+<ul>
+<li>Author provides a *Builder type (task,async,seq,optional,..)</li>
+<li>Compiler desugars bangs (let!,match!,while!,...) into calls</li>
+<li>builder.Bind(expression, fun result -&gt; rest of the code)</li>
+<li>Nesting &amp; Composition</li>
+</ul>
+</section>
+</section>
+<section >
+<section >
+<h3>Generics (.NET 2.0, 2005)</h3>
+<ul>
+<li>Programming with data types "to be specified later"</li>
+<li>Key enabler for Collections, LINQ, TPL, Span</li>
+</ul>
+<h4>Before</h4>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="cs">ArrayList list <span class="o">=</span> <span class="k">new</span> ArrayList();
+list.Add(<span class="n">42</span>);
+<span class="k">int</span> <span class="k">value</span> <span class="o">=</span> (<span class="k">int</span>)list[<span class="n">0</span>];
+</code></pre></td></tr></table>
+<h4>After</h4>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="cs">List&lt;<span class="k">int</span>&gt; list <span class="o">=</span> <span class="k">new</span> List&lt;<span class="k">int</span>&gt; { <span class="n">42</span> };
+<span class="k">int</span> <span class="k">value</span> <span class="o">=</span> list[<span class="n">0</span>];
+</code></pre></td></tr></table>
+</section>
+<section >
+<h3>What is so FP about generics?</h3>
+<ul>
+<li>
+Pioneered in ML in 70s
+<ul>
+<li>ML = Ancestor of F#,OCaml,Elm,Haskell,SML</li>
+</ul>
+</li>
+<li>Strongly typed FP with type inference needs it</li>
+<li>
+Called 'Parametric polymorphism' in FP
+<ul>
+<li>Complements 'this' polymorphism</li>
+</ul>
+</li>
+</ul>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="cs"><span class="c">// public virtual List&lt;T&gt; GenericMethod(T)</span>
+<span class="k">var</span> result <span class="o">=</span> <span class="k">this</span>.GenericMethod(x);
+</code></pre></td></tr></table>
+</section>
+<section >
+<h3>Generics and type inference</h3>
+<ul>
+<li>Every symbol starts as a generic type parameter</li>
+<li>Example: Generic caching decorator</li>
+</ul>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs5', 7)" onmouseover="showTip(event, 'fs5', 7)" class="f">cachedVersionOf</span> <span onmouseout="hideTip(event, 'fs6', 8)" onmouseover="showTip(event, 'fs6', 8)" class="f">originalFunction</span> <span class="o">=</span>
+    <span class="k">let</span> <span class="k">mutable</span> <span onmouseout="hideTip(event, 'fs7', 9)" onmouseover="showTip(event, 'fs7', 9)" class="v">cache</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs8', 10)" onmouseover="showTip(event, 'fs8', 10)" class="t">Map</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs9', 11)" onmouseover="showTip(event, 'fs9', 11)" class="i">empty</span>
+    <span class="k">fun</span> <span onmouseout="hideTip(event, 'fs10', 12)" onmouseover="showTip(event, 'fs10', 12)" class="i">key</span> <span class="k">-&gt;</span>
+        <span class="k">match</span> <span onmouseout="hideTip(event, 'fs7', 13)" onmouseover="showTip(event, 'fs7', 13)" class="v">cache</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs8', 14)" onmouseover="showTip(event, 'fs8', 14)" class="t">Map</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs11', 15)" onmouseover="showTip(event, 'fs11', 15)" class="f">tryFind</span> <span onmouseout="hideTip(event, 'fs10', 16)" onmouseover="showTip(event, 'fs10', 16)" class="i">key</span>  <span class="k">with</span>
+        | <span onmouseout="hideTip(event, 'fs12', 17)" onmouseover="showTip(event, 'fs12', 17)" class="p">Some</span> <span onmouseout="hideTip(event, 'fs13', 18)" onmouseover="showTip(event, 'fs13', 18)" class="i">value</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs13', 19)" onmouseover="showTip(event, 'fs13', 19)" class="i">value</span>
+        | <span onmouseout="hideTip(event, 'fs14', 20)" onmouseover="showTip(event, 'fs14', 20)" class="p">None</span> <span class="k">-&gt;</span>
+            <span class="k">let</span> <span onmouseout="hideTip(event, 'fs13', 21)" onmouseover="showTip(event, 'fs13', 21)" class="i">value</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs6', 22)" onmouseover="showTip(event, 'fs6', 22)" class="f">originalFunction</span>(<span onmouseout="hideTip(event, 'fs10', 23)" onmouseover="showTip(event, 'fs10', 23)" class="i">key</span>)
+            <span onmouseout="hideTip(event, 'fs7', 24)" onmouseover="showTip(event, 'fs7', 24)" class="v">cache</span> <span class="o">&lt;-</span> <span onmouseout="hideTip(event, 'fs7', 25)" onmouseover="showTip(event, 'fs7', 25)" class="v">cache</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs8', 26)" onmouseover="showTip(event, 'fs8', 26)" class="t">Map</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs15', 27)" onmouseover="showTip(event, 'fs15', 27)" class="f">add</span> <span onmouseout="hideTip(event, 'fs10', 28)" onmouseover="showTip(event, 'fs10', 28)" class="i">key</span> <span onmouseout="hideTip(event, 'fs13', 29)" onmouseover="showTip(event, 'fs13', 29)" class="i">value</span> 
+            <span onmouseout="hideTip(event, 'fs13', 30)" onmouseover="showTip(event, 'fs13', 30)" class="i">value</span>
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs16', 31)" onmouseover="showTip(event, 'fs16', 31)" class="f">expandEnvVars</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs5', 32)" onmouseover="showTip(event, 'fs5', 32)" class="f">cachedVersionOf</span> <span onmouseout="hideTip(event, 'fs17', 33)" onmouseover="showTip(event, 'fs17', 33)" class="i">System</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs18', 34)" onmouseover="showTip(event, 'fs18', 34)" class="t">Environment</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs19', 35)" onmouseover="showTip(event, 'fs19', 35)" class="f">ExpandEnvironmentVariables</span>
+</code></pre></td>
+</tr>
+</table>
+</section>
+<section >
+<h3>How landed in .NET?</h3>
+<ul>
+<li>Don Syme from Microsoft Research</li>
+<li>
+Specifically designed (1998) to support FP languages on .NET
+<ul>
+<li>Not an accident!</li>
+<li>Needed by Project 7 (wait for it.. :-))</li>
+</ul>
+</li>
+<li>Unlike GJ in JVM, using JIT!</li>
+</ul>
+</section>
+</section>
+<section >
+<section >
+<h3>Early .NET</h3>
+<ul>
+<li>MSFT: C,ASM,BASIC</li>
+<li>Loss of Java license (J++), OO wave</li>
+<li>
+COM+ 2.0 -&gt; Lightning -&gt; .NET
+<ul>
+<li>Regular Bill Gates reviews</li>
+<li>Key decision: <strong>Multi-language</strong> runtime</li>
+<li>+new COOL</li>
+</ul>
+</li>
+</ul>
+</section>
+<section >
+<h3>Project 7</h3>
+<ul>
+<li>
+Approach industry and academia for 7+7 ports
+<ul>
+<li>MSR as link to academia</li>
+</ul>
+</li>
+<li>COBOL, Perl, Python, Ada</li>
+<li>Eiffel, Mercury, <strong>SML</strong>, <strong>Haskell</strong>, <strong>OCaml</strong>, Scheme, <strong>Alice</strong></li>
+<li>( OOP ,  Logic ,  ----------  ML    ------------   , LISP, Concurrency)</li>
+</ul>
+</section>
+<section >
+<h3>Interop is good, but hard</h3>
+<ul>
+<li>Academical languages needed libraries, frameworks, tools</li>
+<li>BUT: 2 runtimes, 2 GCs ?</li>
+<li>Type systems compatibility</li>
+<li>Haskell.NET: 'Dirtyness' of .NET a problem</li>
+</ul>
+</section>
+</section>
+<section >
+<section >
+<h3>Birth of F#</h3>
+<ul>
+<li>
+Started as OCaml.NET by Don Syme
+<ul>
+<li>2002</li>
+</ul>
+</li>
+<li>Do a fresh .NET language with its own identity</li>
+<li>
+Main ancestor line:
+<ul>
+<li>
+OCaml (1996, Object features)
+<ul>
+<li>
+Caml (1985)
+<ul>
+<li>
+ML (early 70s, Generics, Strongly typed)
+<ul>
+<li>LISP (1958, GC, Recursion)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</section>
+<section >
+<h4>F#</h4>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span class="k">rec</span> <span onmouseout="hideTip(event, 'fs20', 36)" onmouseover="showTip(event, 'fs20', 36)" class="f">factorial</span> <span class="o">=</span> <span class="k">function</span>
+    | <span class="n">0</span> <span class="k">-&gt;</span> <span class="n">1</span>
+    | <span onmouseout="hideTip(event, 'fs21', 37)" onmouseover="showTip(event, 'fs21', 37)" class="i">n</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs21', 38)" onmouseover="showTip(event, 'fs21', 38)" class="i">n</span> <span class="o">*</span> <span onmouseout="hideTip(event, 'fs20', 39)" onmouseover="showTip(event, 'fs20', 39)" class="f">factorial</span> (<span onmouseout="hideTip(event, 'fs21', 40)" onmouseover="showTip(event, 'fs21', 40)" class="i">n</span> <span class="o">-</span> <span class="n">1</span>)    
+</code></pre></td>
+</tr>
+</table>
+<h4>ML</h4>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip"><code lang="sml">fun factorial 0 = 1
+  | factorial n = n * factorial (n - 1);
+</code></pre></td></tr></table>
+<h4>LISP</h4>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip"><code lang="lisp">(defun factorial (n)
+    (if (= n 0) 1 (* n (factorial (- n 1))))
+</code></pre></td></tr></table>
+<p>Are the parens right?!</p>
+</section>
+</section>
+<section >
+<h3>Next big thing?</h3>
+<ul>
+<li>Type unions in C#?</li>
+</ul>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+<span class="l">6: </span>
+<span class="l">7: </span>
+<span class="l">8: </span>
+<span class="l">9: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">type</span> <span onmouseout="hideTip(event, 'fs22', 41)" onmouseover="showTip(event, 'fs22', 41)" class="t">Size</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs23', 42)" onmouseover="showTip(event, 'fs23', 42)" class="p">Pixels</span> <span class="k">of</span> <span onmouseout="hideTip(event, 'fs24', 43)" onmouseover="showTip(event, 'fs24', 43)" class="t">int</span> | <span onmouseout="hideTip(event, 'fs25', 44)" onmouseover="showTip(event, 'fs25', 44)" class="p">Percentage</span> <span class="k">of</span> <span onmouseout="hideTip(event, 'fs26', 45)" onmouseover="showTip(event, 'fs26', 45)" class="t">float</span> | <span onmouseout="hideTip(event, 'fs27', 46)" onmouseover="showTip(event, 'fs27', 46)" class="p">Auto</span>
+
+<span class="k">type</span> <span onmouseout="hideTip(event, 'fs28', 47)" onmouseover="showTip(event, 'fs28', 47)" class="t">Option</span><span class="o">&lt;</span><span class="o">&#39;</span><span class="i">T</span><span class="o">&gt;</span> <span class="o">=</span> 
+    | <span onmouseout="hideTip(event, 'fs29', 48)" onmouseover="showTip(event, 'fs29', 48)" class="p">Some</span> <span class="k">of</span> <span class="o">&#39;</span><span class="i">T</span> 
+    | <span onmouseout="hideTip(event, 'fs14', 49)" onmouseover="showTip(event, 'fs14', 49)" class="p">None</span>
+
+<span class="k">type</span> <span onmouseout="hideTip(event, 'fs30', 50)" onmouseover="showTip(event, 'fs30', 50)" class="t">Result</span><span class="o">&lt;</span><span class="o">&#39;</span><span class="i">T</span>,<span class="o">&#39;</span><span class="i">TErr</span><span class="o">&gt;</span> <span class="o">=</span> 
+    | <span onmouseout="hideTip(event, 'fs31', 51)" onmouseover="showTip(event, 'fs31', 51)" class="p">Ok</span> <span class="k">of</span> <span class="o">&#39;</span><span class="i">T</span> 
+    | <span onmouseout="hideTip(event, 'fs32', 52)" onmouseover="showTip(event, 'fs32', 52)" class="p">Error</span> <span class="k">of</span> <span class="o">&#39;</span><span class="i">TErr</span>
+</code></pre></td>
+</tr>
+</table>
+</section>
+<section >
+<h3>The end</h3>
+<ul>
+<li>FP found its way into mainstream</li>
+<li>Not the case 25y ago!</li>
+<li>
+Want to enjoy it even more?
+<ul>
+<li><a href="https://fsharp.org/">https://fsharp.org/</a></li>
+<li>Reach me at tomasgrosup @ Twitter/X/bluesky</li>
+<li>T-Gro @ Github</li>
+</ul>
+</li>
+</ul>
+</section>
+
+
+        </div>
+    </div>
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.js"></script>
+    <script>
+        // Add the nohighlight class and data-noescape attribute to code elements that have already been formatted by FSharp.Formatting
+        $('pre.highlighted code').addClass('nohighlight').attr('data-noescape', '');
+
+        // Full list of configuration options available here:
+        // https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+
+            transition: 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+            // Parallax scrolling
+            // parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+            // parallaxBackgroundSize: '2100px 900px',
+
+            // Optional libraries used to extend on reveal.js
+            dependencies: [
+                { src: 'lib/js/classList.js', condition: function () { return !document.body.classList; } },
+                { src: 'plugin/markdown/marked.js', condition: function () { return !!document.querySelector('[data-markdown]'); } },
+                { src: 'plugin/markdown/markdown.js', condition: function () { return !!document.querySelector('[data-markdown]'); } },
+                { src: 'plugin/highlight/highlight.js', async: true, callback: function () { hljs.initHighlightingOnLoad(); } },
+                { src: 'plugin/zoom-js/zoom.js', async: true, condition: function () { return !!document.body.classList; } },
+                { src: 'plugin/notes/notes.js', async: true, condition: function () { return !!document.body.classList; } }
+            ]
+        });
+
+    </script>
+</body>
+</html>
+
